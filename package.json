@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "serve": "echo TODO: spin up front and back servers w/ out sending to background"
   },
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {}
 }
