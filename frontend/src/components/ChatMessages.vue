@@ -1,17 +1,40 @@
 <template>
-  <ul id="messages"></ul>
+  <ul id="messages">
+    <li v-for="(message, index) in messages" :key='"message"+index' v-text="message" />
+  </ul>
 </template>
 
+<script>
+export default {
+  data() {
+    return {
+      messages: []
+    }
+  },
+  sockets: {
+    is_online(data) {
+      console.log('someone is online?', data)
+      this.addMessage('🔵 <i>' + data.user + ' join the chat..</i>')
+    }
+  },
+  methods: {
+    addMessage(message) {
+      this.messages.push(message)
+    }
+  }
+}
+</script>
+
 <style scoped>
-#messages { 
-  list-style-type: none; 
+#messages {
+  list-style-type: none;
   margin: 0;
-  padding: 0; 
+  padding: 0;
 }
-#messages li { 
-  padding: 5px 10px; 
+#messages li {
+  padding: 5px 10px;
 }
-#messages li:nth-child(odd) { 
-  background: #eee; 
+#messages li:nth-child(odd) {
+  background: #eee;
 }
 </style>

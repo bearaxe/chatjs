@@ -43,7 +43,7 @@ io.sockets.on('connection', function(socket) {
   socket.on('username', function(username) {
       socket.username = username;
       console.log('caught the data', socket.username);
-      io.emit('is_online', '🔵 <i>' + socket.username + ' join the chat..</i>');
+      io.emit('is_online', {user: socket.username});
   });
 
   socket.on('disconnect', function(username) {

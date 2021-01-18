@@ -1,11 +1,11 @@
 <template>
-  <div v-if="username != ''">
+  <div v-if="isLoggedIn">
     <img alt="Vue logo" src="./assets/logo.png">
     <ChatMessages />
     <ChatBar />
   </div>
   <div v-else>
-    <Login />
+    <Login @loggedIn="isLoggedIn = true" />
   </div>
 </template>
 
@@ -23,20 +23,12 @@ export default {
   },
   data() {
     return {
-      username: ''
+      isLoggedIn: false
     }
   },
-   mounted() {
+  mounted() {
     this.$socket.connect();
   },
-  sockets: {
-    is_online(data) {
-      console.log('someone is online?', data);
-    }
-  },
-  methods: {
-
-  }
 }
 </script>
 

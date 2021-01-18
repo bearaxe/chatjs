@@ -9,10 +9,9 @@
 export default {
   methods: {
     setUsername() {
-      this.username = this.$refs.usernameEntry.value;
-      this.$socket.emit('username', this.username);
-      console.clear();
-      console.log('socket', this.$socket);
+      this.username = this.$refs.usernameEntry.value
+      this.$socket.emit('username', this.username)
+      this.$emit('loggedIn')
     }
   }
 }
