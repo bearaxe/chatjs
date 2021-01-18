@@ -1,0 +1,4 @@
+{
+  "SERVER_PORT": 3080,
+  "CLIENT_PORT": 8080
+}
