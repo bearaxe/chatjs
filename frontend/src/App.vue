@@ -5,20 +5,21 @@
     <ChatBar />
   </div>
   <div v-else>
-    <input ref="usernameEntry" placeholder="username go here, scrub" />
-    <button @click="setUsername">submit</button>
+    <Login />
   </div>
 </template>
 
 <script>
 import ChatBar from './components/ChatBar.vue'
 import ChatMessages from './components/ChatMessages.vue'
+import Login from './components/Login.vue'
 
 export default {
   name: 'App',
   components: {
     ChatBar,
-    ChatMessages
+    ChatMessages,
+    Login
   },
   data() {
     return {
@@ -26,22 +27,15 @@ export default {
     }
   },
    mounted() {
-    //this.username = await prompt('Give user name, please.');
-    // this.$socket.emit('username', this.username);
     this.$socket.connect();
   },
   sockets: {
-
-
+    is_online(data) {
+      console.log('someone is online?', data);
+    }
   },
   methods: {
-    setUsername() {
-      this.username = this.$refs.usernameEntry.value;
-      this.$socket.emit('username', this.username);
-      console.clear();
-      console.log('socket', this.$socket);
 
-    }
   }
 }
 </script>
