@@ -15,10 +15,14 @@ export default {
     is_online(data) {
       console.log('someone is online?', data)
       this.addMessage('🔵 <i>' + data.user + ' join the chat..</i>')
+    },
+    chat_message(data) {
+      this.addMessage(`${data.user}: ${data.message}`)
     }
   },
   methods: {
     addMessage(message) {
+      //TODO: allow html i want to add, ignore html user sends
       this.messages.push(message)
     }
   }
