@@ -1,6 +1,9 @@
 <template>
   <ul id="messages">
-    <li v-for="(message, index) in messages" :key='"message"+index' v-text="message" />
+    <li v-for="(messageData, index) in messages" :key='"message"+index'>
+      <span v-if="messageData.trusted" v-html="messageData.value" />
+      <span v-else v-text="messageData.value" />
+    </li>
   </ul>
 </template>
 
@@ -13,17 +16,18 @@ export default {
   },
   sockets: {
     is_online(data) {
-      console.log('someone is online?', data)
-      this.addMessage('🔵 <i>' + data.user + ' join the chat..</i>')
+      this.addMessage(`🔵 <i>${data.user} has joined the chat!</i>`, true)
     },
     chat_message(data) {
       this.addMessage(`${data.user}: ${data.message}`)
     }
   },
   methods: {
-    addMessage(message) {
-      //TODO: allow html i want to add, ignore html user sends
-      this.messages.push(message)
+    addMessage(message, safeToRender) {
+      this.messages.push({
+        trusted: safeToRender,
+        value: message
+      })
     }
   }
 }
