@@ -1,6 +1,10 @@
 <template>
-  <ul id="messages">
-    <li v-for="(messageData, index) in messages" :key='"message"+index'>
+  <ul class="messages">
+    <li
+      v-for="(messageData, index) in messages"
+      :key='"message-"+index'
+      :class="{'system-message': messageData.trusted}"
+    >
       <span v-if="messageData.trusted" v-html="messageData.value" />
       <span v-else v-text="messageData.value" />
     </li>
@@ -40,15 +44,18 @@ export default {
 </script>
 
 <style scoped>
-#messages {
+.messages {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
-#messages li {
+.messages li {
   padding: 5px 10px;
 }
-#messages li:nth-child(odd) {
-  background: #eee;
+.messages li:nth-child(odd) {
+  background: rgb(168, 168, 168);
+}
+.system-message {
+  background: #FFFF00 !important;
 }
 </style>
