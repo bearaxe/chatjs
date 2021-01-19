@@ -10,7 +10,8 @@ export default {
   methods: {
     setUsername() {
       this.username = this.$refs.usernameEntry.value
-      this.$socket.emit('username', this.username)
+      //TODO: validate
+      this.$socket.emit('login', this.username)
       this.$emit('loggedIn')
     }
   }

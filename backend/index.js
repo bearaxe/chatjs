@@ -3,14 +3,7 @@ const path = require('path');
 const app = express();
 const http = require('http').Server(app);
 const { SERVER_PORT, CLIENT_PORT } = require('../config.json');
-// const io = require('socket.io')(http, {
-//   cors: {
-//     origin: 'http://localhost:8080',
-//     //methods: ['GET', 'POST'],
-//     credentials: true,
-//   },
-//   //transports: ['websocket', 'polling']
-// });
+
 // shotgun, for now
 var io = require('socket.io')(http, {
   cors: {
@@ -20,7 +13,7 @@ var io = require('socket.io')(http, {
     credentials: true
   }
 })
-// const port = 3080;
+
 const frontendDir = '../frontend/dist';
 
 // CORS strikes again.
@@ -39,19 +32,16 @@ const frontendDir = '../frontend/dist';
 
 
 io.sockets.on('connection', function(socket) {
-  console.log('connecting')
-  socket.on('username', function(username) {
+  socket.on('login', function(username) {
       socket.username = username;
-      console.log('caught the data', socket.username);
-      io.emit('is_online', {user: socket.username});
+      io.emit('is_online', {user: socket.username, action: 'CONNECT'});
   });
 
-  socket.on('disconnect', function(username) {
-      io.emit('is_online', '🔴 <i>' + socket.username + ' left the chat..</i>');
+  socket.on('disconnect', function() {
+      io.emit('is_online', {user: socket.username, action: 'DISCONNECT'});
   })
 
   socket.on('chat_message', function({ message }) {
-    // console.log('caught a chat', data)
     io.emit('chat_message', {user: socket.username, message});
   });
 });

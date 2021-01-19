@@ -16,7 +16,7 @@ export default {
   },
   sockets: {
     is_online(data) {
-      this.addMessage(`🔵 <i>${data.user} has joined the chat!</i>`, true)
+      this[`user_${data.action}`](data);
     },
     chat_message(data) {
       this.addMessage(`${data.user}: ${data.message}`)
@@ -28,6 +28,12 @@ export default {
         trusted: safeToRender,
         value: message
       })
+    },
+    user_CONNECT(data){
+      this.addMessage(`🔵 <i>${data.user} has joined the chat!</i>`, true)
+    },
+    user_DISCONNECT(data){
+      this.addMessage(`🔴 <i>${data.user} left the chat..</i>`, true)
     }
   }
 }
